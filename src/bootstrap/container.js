@@ -18,7 +18,6 @@ function buildContainer() {
   const config = loadConfig();
   const logger = createLogger(config.env);
   const db = initializeFirestore(config.firebase);
-
   const mappingRepository = new MappingRepository(db);
   const whatsappRepository = new WhatsAppRepository(db);
   const attendanceRepository = new AttendanceRepository(db);
@@ -33,8 +32,22 @@ function buildContainer() {
     logger,
   });
   const doneCache = new DoneCache();
+  const healthState = {
+    firestoreReady: true,
+    whatsappReady: false,
+    startTimeMs: Date.now(),
+  };
 
   const whatsappClient = createWhatsAppClient(config.whatsapp, logger);
+  whatsappClient.on("ready", () => {
+    healthState.whatsappReady = true;
+  });
+  whatsappClient.on("disconnected", () => {
+    healthState.whatsappReady = false;
+  });
+  whatsappClient.on("auth_failure", () => {
+    healthState.whatsappReady = false;
+  });
   const whatsappMessageListener = new WhatsAppMessageListener({
     whatsappRepository,
     doneCache,
@@ -48,6 +61,14 @@ function buildContainer() {
     mappingService,
     penaltyRepository,
     whatsappRepository,
+    security: config.security,
+    healthProvider: () => ({
+      env: config.env,
+      firestoreReady: healthState.firestoreReady,
+      whatsappReady: healthState.whatsappReady,
+      uptimeSeconds: Math.floor((Date.now() - healthState.startTimeMs) / 1000),
+      timestamp: new Date().toISOString(),
+    }),
   });
   const dailyJob = createDailyAttendanceJob({
     cronExpression: config.cron.dailyAttendance,
