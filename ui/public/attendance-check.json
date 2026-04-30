@@ -1,0 +1,188 @@
+{
+  "generatedAt": "2026-04-30T15:48:35+06:00",
+  "date": "2026-04-30",
+  "summary": {
+    "totalEmployees": 16,
+    "presentCount": 16,
+    "absentCount": 0,
+    "attendanceRate": 100
+  },
+  "records": [
+    {
+      "employeeId": "2XakBYywU96bDwfeY1Up",
+      "name": "Tonmoy Kumer Mohonto",
+      "email": "codermohonto@gmail.com",
+      "phone": "01842723486",
+      "designationId": "YfGWwosyCEgyXhpDU2Bk",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "9pF2kJ8LH99T7nCHGIzR",
+      "name": "Mahbub Alam",
+      "email": "mahbub.alam@brotecs.com",
+      "phone": "01784310996",
+      "designationId": "6n7WixTbGJHEib0yUMhG",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "DbLOerbd6pNwZm8XUiJk",
+      "name": "MD Shahriar Islam Shaikat",
+      "email": "shahriar.shaikat@brotecs.com",
+      "phone": "01795047219",
+      "designationId": "M2peFbhNorGjiGKG3gDj",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "Gj8Zckgn8iGV9I5o3gzZ",
+      "name": "Ahanab Shakil",
+      "email": "ahanab.shakil@brotecs.com",
+      "phone": "01737372179",
+      "designationId": "YfGWwosyCEgyXhpDU2Bk",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "JtzqCqgGF3zfSXMv35NH",
+      "name": "Nahid Hasan",
+      "email": "nahid.hasan@brotecs.com",
+      "phone": "01760781145",
+      "designationId": "eJraK5rg3na2IopZhqPd",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "RsXmc5Mn5KAvhkvYPAic",
+      "name": "Anas Mahmud",
+      "email": "md.anasmahmudcse@gmail.com",
+      "phone": "01886542301",
+      "designationId": "M2peFbhNorGjiGKG3gDj",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "XUK6QFhtcIbfK5U5QVYH",
+      "name": "Niamul Hasan",
+      "email": "niamul.hasan@brotecs.com",
+      "phone": "01704159550",
+      "designationId": "eJraK5rg3na2IopZhqPd",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "bA01JdAI34rKTagvlHh3",
+      "name": "Samnoon Abrar",
+      "email": "samnoon.abrar@brotecs.com",
+      "phone": "01910156006",
+      "designationId": "YfGWwosyCEgyXhpDU2Bk",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "ghKeF6EnIJLmShJWxScO",
+      "name": "Mohammd Hasan Murad",
+      "email": "murad.hasan@brotecs.com",
+      "phone": "",
+      "designationId": "mqGMxcw3fLfY8eiO6x7x",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "hZgkq3Xrt9hIVO3jAHDR",
+      "name": "Mosharaf Hossain",
+      "email": "mosharaf.hossain@brotecs.com",
+      "phone": "000",
+      "designationId": "6n7WixTbGJHEib0yUMhG",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "hpvuPtsgrwy0LJBfKFpH",
+      "name": "Sharif Hossain",
+      "email": "sharif.hossain@brotecs.com",
+      "phone": "01621561651",
+      "designationId": "fACZT4JVA5ZzNH9SEBwV",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "leqwz3ZuByTeCv9KtONI",
+      "name": "Jamal Khan",
+      "email": "jamal.khan@brotecs.com",
+      "phone": "01815422456",
+      "designationId": "RuAuZ4EPh6rvtktmKaCO",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "m3fSNL2fFHPul6Z3gVJl",
+      "name": "Kamrul Islam Sharif",
+      "email": "kamrul.sharif@brotecs.com",
+      "phone": "01714119184",
+      "designationId": "p6tJsCOZlVnSh8IFcu21",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "pCFlBpeHqGKDBrmPxa5S",
+      "name": "Muhammad Rajib Hawlader",
+      "email": "rajib.hawlader@brotecs.com",
+      "phone": "01323028748",
+      "designationId": "5zfbsrHKwzrzwPiSkp0e",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "saS0RXYBpf6bzdWMzaZ7",
+      "name": "Nahid Zaman Reed",
+      "email": "nahid.zaman@brotecs.com",
+      "phone": "01775060744",
+      "designationId": "6n7WixTbGJHEib0yUMhG",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    },
+    {
+      "employeeId": "ub7FrB0ROXqXTe9b7BSm",
+      "name": "Abu Sayed Polin",
+      "email": "sayed.polin@brotecs.com",
+      "phone": "01756160530",
+      "designationId": "YfGWwosyCEgyXhpDU2Bk",
+      "present": true,
+      "done": false,
+      "penalty": false,
+      "reason": ""
+    }
+  ]
+}

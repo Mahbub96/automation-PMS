@@ -4,18 +4,34 @@ class MappingRepository {
     this.collection = this.db.collection("mapping");
   }
 
-  async upsertMapping({ whatsappName, employeeId, officialName }) {
+  async upsertMapping({
+    whatsappName,
+    employeeId,
+    officialName,
+    attendanceName,
+    pmsName,
+  }) {
     const key = this.normalizeKey(whatsappName);
+    const normalizedPmsName = pmsName || officialName || null;
     await this.collection.doc(key).set(
       {
         whatsappName,
         employeeId,
-        officialName: officialName || null,
+        officialName: normalizedPmsName,
+        pmsName: normalizedPmsName,
+        attendanceName: attendanceName || null,
         updatedAt: new Date().toISOString(),
       },
       { merge: true }
     );
-    return { key, whatsappName, employeeId, officialName: officialName || null };
+    return {
+      key,
+      whatsappName,
+      employeeId,
+      officialName: normalizedPmsName,
+      pmsName: normalizedPmsName,
+      attendanceName: attendanceName || null,
+    };
   }
 
   async getAllMappings() {

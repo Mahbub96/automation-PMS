@@ -8,7 +8,6 @@ dotenv.config();
 const required = [
   "PORT",
   "ATTENDANCE_API_URL",
-  "ATTENDANCE_API_KEY",
   "FIREBASE_PROJECT_ID",
   "WHATSAPP_GROUP_ID",
 ];
@@ -59,6 +58,15 @@ function assertRequiredEnv() {
   if (!isPositiveInteger(maxRetries) && maxRetries !== 0) {
     throw new Error(
       "Invalid ATTENDANCE_MAX_RETRIES. Provide a non-negative integer.",
+    );
+  }
+
+  const hasAttendanceLoginCreds = Boolean(
+    process.env.ATTENDANCE_USERNAME && process.env.ATTENDANCE_PASSWORD,
+  );
+  if (!hasAttendanceLoginCreds) {
+    throw new Error(
+      "Attendance login is required. Set ATTENDANCE_USERNAME and ATTENDANCE_PASSWORD.",
     );
   }
 
@@ -117,7 +125,14 @@ function loadConfig() {
     },
     attendanceApi: {
       url: process.env.ATTENDANCE_API_URL,
-      apiKey: process.env.ATTENDANCE_API_KEY,
+      todayPath: process.env.ATTENDANCE_API_TODAY_PATH || "/",
+      apiKey: process.env.ATTENDANCE_API_KEY || "",
+      authUrl: process.env.ATTENDANCE_AUTH_URL || "",
+      username: process.env.ATTENDANCE_USERNAME || "",
+      password: process.env.ATTENDANCE_PASSWORD || "",
+      tokenCacheFile:
+        process.env.ATTENDANCE_TOKEN_CACHE_FILE ||
+        path.resolve(".cache/attendance-api-token.json"),
       timeoutMs: Number(process.env.ATTENDANCE_TIMEOUT_MS || 10000),
       maxRetries: Number(process.env.ATTENDANCE_MAX_RETRIES || 3),
     },

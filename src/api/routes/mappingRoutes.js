@@ -6,11 +6,14 @@ function createMappingRoutes({ mappingService }) {
 
   router.post("/", validateMappingBody, async (req, res, next) => {
     try {
-      const { whatsappName, employeeId, officialName } = req.body;
+      const { whatsappName, employeeId, officialName, attendanceName, pmsName } =
+        req.body;
       const mapping = await mappingService.upsertMapping({
         whatsappName,
         employeeId,
         officialName,
+        attendanceName,
+        pmsName,
       });
       res.status(201).json({ mapping });
     } catch (err) {

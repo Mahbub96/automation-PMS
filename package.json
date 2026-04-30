@@ -13,6 +13,8 @@
     "dev:full": "bash scripts/dev-full.sh",
     "wa:login": "node scripts/whatsapp-login-check.js",
     "wa:track": "node scripts/wa-track-done.js",
+    "cache:attendance": "node scripts/build-attendance-cache.js",
+    "cache:alias": "node scripts/sync-person-alias-map.js",
     "test": "echo \"No tests configured\""
   },
   "keywords": [],

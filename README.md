@@ -38,6 +38,12 @@ src/
 2. Copy environment:
    - `cp .env.example .env`
 3. Fill all `.env` values (Firebase, attendance API, WhatsApp group ID)
+   - Attendance API auth supports two modes:
+     - Static bearer token: set `ATTENDANCE_API_KEY`
+     - Login flow (recommended): set `ATTENDANCE_AUTH_URL`, `ATTENDANCE_USERNAME`, `ATTENDANCE_PASSWORD` (token is cached in `ATTENDANCE_TOKEN_CACHE_FILE`)
+   - For the new dashboard attendance API, use:
+     - `ATTENDANCE_API_URL=https://<host>`
+     - `ATTENDANCE_API_TODAY_PATH=/api/brotecs/today-dashboard`
    - For Firebase Admin, recommended option is setting `FIREBASE_SERVICE_ACCOUNT_PATH` to your downloaded service-account JSON file.
    - Alternative is using `FIREBASE_CLIENT_EMAIL` + `FIREBASE_PRIVATE_KEY` (or `FIREBASE_PRIVATE_KEY_BASE64`).
 4. Build React GUI:
@@ -85,6 +91,10 @@ src/
 - Run `npm run wa:track` to listen for `done` messages in `WHATSAPP_GROUP_ID` without backend Firebase dependency.
 - `wa:track` only processes messages from configured `WHATSAPP_GROUP_ID` and stores matched events in `WA_TRACK_CACHE_FILE` as a JSON array for later use.
 - `wa:track` also exposes an SSE stream at `WA_TRACK_SSE_PORT` (default `3099`) for instant GUI updates.
+- Cache retention is controlled by `WA_TRACK_RETENTION_HOURS` (default `12`); older tracked events are auto-pruned.
+- Runtime tuning is env-driven, including dispute threshold/count (`VITE_DISPUTE_REQUIRED_DONE_COUNT`), auto-apply schedule (`VITE_AUTO_APPLY_HOUR`, `VITE_AUTO_APPLY_CHECK_INTERVAL_MS`), UI fallback refresh (`VITE_TRACK_FALLBACK_REFRESH_MS`), and cache prune cadence (`WA_TRACK_PRUNE_INTERVAL_MS`).
+- Late-done cutoff is env-driven in tracker: `WA_DONE_CUTOFF_HOUR` and `WA_DONE_CUTOFF_MINUTE` (default `10:25`).
+- Missed-done auto penalty (present but no done after cutoff) is env-driven in UI via `VITE_DONE_CUTOFF_HOUR` and `VITE_DONE_CUTOFF_MINUTE`.
 
 ## Business Rule
 
@@ -107,6 +117,7 @@ src/
 
 - Idempotent upserts for attendance and penalties
 - Exponential backoff retry for attendance API fetch
+- Automatic attendance access-token refresh (login mode) with in-memory + file cache
 - In-memory dedup cache + Firestore doc-key dedup for WhatsApp done logs
 - Centralized error handling + rate limiting + input validation
 

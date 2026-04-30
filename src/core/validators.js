@@ -7,9 +7,20 @@ function ensureDateParam(value, fieldName = "date") {
 }
 
 function validateMappingBody(req, res, next) {
-  const { whatsappName, employeeId } = req.body || {};
+  const { whatsappName, employeeId, attendanceName, pmsName } = req.body || {};
   if (!whatsappName || !employeeId) {
-    return next(new AppError("whatsappName and employeeId are required", 400));
+    return next(
+      new AppError(
+        "whatsappName and employeeId are required (attendanceName/pmsName optional)",
+        400,
+      ),
+    );
+  }
+  if (attendanceName != null && !String(attendanceName).trim()) {
+    return next(new AppError("attendanceName cannot be empty when provided", 400));
+  }
+  if (pmsName != null && !String(pmsName).trim()) {
+    return next(new AppError("pmsName cannot be empty when provided", 400));
   }
   return next();
 }

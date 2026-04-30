@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
+  addDoc,
   collection,
   doc,
   getDocs,
@@ -19,9 +20,9 @@ const firebaseConfig = {
 function hasFirebaseConfig() {
   return Boolean(
     firebaseConfig.apiKey &&
-      firebaseConfig.authDomain &&
-      firebaseConfig.projectId &&
-      firebaseConfig.appId,
+    firebaseConfig.authDomain &&
+    firebaseConfig.projectId &&
+    firebaseConfig.appId,
   );
 }
 
@@ -29,7 +30,9 @@ let db = null;
 
 function getDb() {
   if (!hasFirebaseConfig()) {
-    throw new Error("Missing VITE_FIREBASE_* config for frontend Firebase mode.");
+    throw new Error(
+      "Missing VITE_FIREBASE_* config for frontend Firebase mode.",
+    );
   }
   if (db) return db;
   const app = initializeApp(firebaseConfig);
@@ -57,7 +60,13 @@ export async function getMappingsFromFirebase() {
   return mapDocs(snapshot);
 }
 
-export async function upsertMappingInFirebase({ whatsappName, employeeId, officialName }) {
+export async function upsertMappingInFirebase({
+  whatsappName,
+  employeeId,
+  officialName,
+  attendanceName,
+  pmsName,
+}) {
   const key = normalizeKey(whatsappName);
   if (!key) {
     throw new Error("whatsappName is required.");
@@ -65,23 +74,51 @@ export async function upsertMappingInFirebase({ whatsappName, employeeId, offici
   const payload = {
     whatsappName: String(whatsappName).trim(),
     employeeId: String(employeeId).trim(),
-    officialName: officialName ? String(officialName).trim() : "",
+    officialName: (pmsName || officialName) ? String(pmsName || officialName).trim() : "",
+    pmsName: pmsName ? String(pmsName).trim() : "",
+    attendanceName: attendanceName ? String(attendanceName).trim() : "",
     updatedAt: new Date().toISOString(),
   };
   await setDoc(doc(getDb(), "mapping", key), payload, { merge: true });
 }
 
 export async function getAttendanceByDateFromFirebase(dateKey) {
-  const snapshot = await getDocs(collection(getDb(), "attendance_logs", dateKey, "users"));
+  const snapshot = await getDocs(
+    collection(getDb(), "attendance_logs", dateKey, "users"),
+  );
   return mapDocs(snapshot);
 }
 
 export async function getPenaltiesByDateFromFirebase(dateKey) {
-  const snapshot = await getDocs(collection(getDb(), "penalties", dateKey, "records"));
+  const snapshot = await getDocs(
+    collection(getDb(), "penalties", dateKey, "records"),
+  );
   return mapDocs(snapshot);
 }
 
 export async function getWhatsAppLogsByDateFromFirebase(dateKey) {
-  const snapshot = await getDocs(collection(getDb(), "whatsapp_logs", dateKey, "messages"));
+  const snapshot = await getDocs(
+    collection(getDb(), "whatsapp_logs", dateKey, "messages"),
+  );
   return mapDocs(snapshot);
+}
+
+export async function getEmployeesFromFirebase() {
+  const snapshot = await getDocs(collection(getDb(), "employee"));
+  return mapDocs(snapshot);
+}
+
+export async function getPenaltyReasonsFromFirebase() {
+  const snapshot = await getDocs(collection(getDb(), "penalty-reasons"));
+  return mapDocs(snapshot);
+}
+
+export async function addPenaltyDataRecord(payload) {
+  const record = {
+    ...payload,
+    createdAt: Date.now(),
+    modifiedAt: Date.now(),
+  };
+  const ref = await addDoc(collection(getDb(), "penalty-data"), record);
+  return ref.id;
 }
